@@ -12,6 +12,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+
     }
     
     func setupCollectionView() {
@@ -28,6 +32,45 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         view.addSubview(collectionView)
     }
+    
+    @IBAction func SaveButtonTapped(_ sender: UIButton) {
+        guard let image = imageView.image else {
+              showToast(message: "First select an image")
+              return
+          }
+          
+          UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+      }
+
+      @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer?) {
+          if let error = error {
+              // Show error toast message
+              showToast(message: "Failed to save image: \(error.localizedDescription)")
+          } else {
+              // Show success toast message
+              showToast(message: "Image saved successfully")
+          }
+      }
+
+        func showToast(message: String) {
+            let toastLabel = UILabel(frame: CGRect(x: view.frame.size.width/2 - 150, y: view.frame.size.height-100, width: 300, height: 35))
+            toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+            toastLabel.textColor = UIColor.white
+            toastLabel.font = UIFont.systemFont(ofSize: 14)
+            toastLabel.textAlignment = .center
+            toastLabel.text = message
+            toastLabel.alpha = 1.0
+            toastLabel.layer.cornerRadius = 10
+            toastLabel.clipsToBounds = true
+            view.addSubview(toastLabel)
+            
+            UIView.animate(withDuration: 2.0, delay: 1.0, options: .curveEaseOut, animations: {
+                toastLabel.alpha = 0.0
+            }, completion: { _ in
+                toastLabel.removeFromSuperview()
+            })
+    }
+    
     
     @IBAction func selectPhotoButtonTapped(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
