@@ -63,6 +63,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KKX-Wo-lDL" secondAttribute="trailing" constant="120" id="j9J-fw-yhG"/>
                             <constraint firstItem="VYu-Vj-Q6G" firstAttribute="width" secondItem="KKX-Wo-lDL" secondAttribute="width" id="jLQ-95-1Tt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1Kw-Id-Nq9" secondAttribute="trailing" constant="30" id="r7b-AT-99U"/>
+                            <constraint firstAttribute="width" secondItem="1Kw-Id-Nq9" secondAttribute="width" multiplier="414/354" id="uAh-fr-7KM"/>
                         </constraints>
                     </view>
                     <connections>
