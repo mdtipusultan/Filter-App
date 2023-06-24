@@ -71,28 +71,31 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     
     @IBAction func selectPhotoButtonTapped(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
         
-        let actionSheet = UIAlertController(title: "Select Photo", message: nil, preferredStyle: .actionSheet)
-        
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { _ in
-            imagePicker.sourceType = .camera
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-        
-        let galleryAction = UIAlertAction(title: "Gallery", style: .default) { _ in
-            imagePicker.sourceType = .photoLibrary
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        actionSheet.addAction(cameraAction)
-        actionSheet.addAction(galleryAction)
-        actionSheet.addAction(cancelAction)
-        
-        present(actionSheet, animated: true, completion: nil)
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            
+            let actionSheet = UIAlertController(title: "Select Photo", message: nil, preferredStyle: .actionSheet)
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                let cameraAction = UIAlertAction(title: "Camera", style: .default) { _ in
+                    imagePicker.sourceType = .camera
+                    self.present(imagePicker, animated: true, completion: nil)
+                }
+                actionSheet.addAction(cameraAction)
+            }
+            
+            let galleryAction = UIAlertAction(title: "Gallery", style: .default) { _ in
+                imagePicker.sourceType = .photoLibrary
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            actionSheet.addAction(galleryAction)
+            actionSheet.addAction(cancelAction)
+            
+            present(actionSheet, animated: true, completion: nil)
     }
     
     // MARK: UICollectionViewDataSource
